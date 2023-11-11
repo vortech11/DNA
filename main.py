@@ -12,7 +12,7 @@ for x in range(len(DNA)):
   elif DNA[x] == "C":
     mRNA.append("G")
 
-for x in range(0, len(mRNA), 3):
+for x in range(0, (len(mRNA) - (len(mRNA) % 3)), 3):
   if mRNA[x] == "A":
     if mRNA[x + 1] == "A":
       if mRNA[x + 2] == "A" or mRNA[x + 2] == "G":
@@ -39,7 +39,7 @@ for x in range(0, len(mRNA), 3):
         Amino_acid.append("Tyr")
     elif mRNA[x + 1] == "U":
       if mRNA[x + 2] == "A" or mRNA[x + 2] == "G":
-        Amino_acid.append("leu")
+        Amino_acid.append("Leu")
       else:
         Amino_acid.append("Phe")
     elif mRNA[x + 1] == "C":
@@ -58,7 +58,7 @@ for x in range(0, len(mRNA), 3):
       else:
         Amino_acid.append("His")
     elif mRNA[x + 1] == "U":
-      Amino_acid.append("leu")
+      Amino_acid.append("Leu")
     elif mRNA[x + 1] == "C":
       Amino_acid.append("Pro")
     elif mRNA[x + 1] == "G":
@@ -77,9 +77,13 @@ for x in range(0, len(mRNA), 3):
       Amino_acid.append("Gly")
 
 print("mRNA: ", end="")
-for x in range(0, len(mRNA), 3):
-  print(mRNA[x], mRNA[x + 1], mRNA[x + 2], sep="", end="-")
-print(" ")
-print("Amino acid: ", end="")
+for x in range(len(mRNA)):
+  print(mRNA[x], sep="", end="")
+  if x % 3 == 2 and x + 1 != len(mRNA):
+    print("-", end="")
+    
+print("\n", "Amino acid: ", sep="", end="")
 for x in range(len(Amino_acid)):
-  print(Amino_acid[x], end="-")
+  print(Amino_acid[x], sep="", end="")
+  if x + 1 != len(Amino_acid):
+    print("-", end="")
