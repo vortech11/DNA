@@ -1,14 +1,29 @@
+string = ""
 DNA = ""
 DNA_list = []
 mRNA = []
 Amino_acid = []
 
 def initialize():
+  global string
   global DNA
   global DNA_list
   if len(DNA) != 0:
     DNA_list.append(DNA)
-  DNA = str(input("DNA: "))
+  string = str(input("DNA: "))
+
+def string_to_DNA():
+  global string
+  global DNA
+  for x in range(len(string)):
+    if string[x] == "A":
+      DNA += "A"
+    elif string[x] == "T":
+      DNA += "T"
+    elif string[x] == "C":
+      DNA += "C"
+    elif string[x] == "G":
+      DNA += "G"
 
 def DNA_to_mRNA():
   global DNA
@@ -113,10 +128,10 @@ def print_Amino_acid():
 def action(thing_that_ate, action, thing_that_got_eaten):
   if thing_that_ate == 7 and action == "ate" and thing_that_got_eaten == 9:
     return True
-
 while action(7, "ate", 9):
 
   initialize()
+  string_to_DNA()
   DNA_to_mRNA()
   mRNA_to_Amino_acid()
   print_mRNA()
