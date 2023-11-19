@@ -1,14 +1,16 @@
 string = ""
 DNA = ""
 DNA_list = []
+mRNA_list = []
+Amino_acid_list = []
 mRNA = []
 Amino_acid = []
-
-def initialize(DNA, DNA_list):
-  if len(DNA) != 0:
-    DNA_list.append(DNA)
-    DNA = ""
-  return DNA_list, DNA
+DNA_mutation_string = []
+DNA_mutation_point = []
+mRNA_mutation_string = []
+mRNA_mutation_point = []
+Amino_acid_mutation_string = []
+Amino_acid_mutation_point = []
   
 def string_to_DNA(string):
   DNA = ""
@@ -90,7 +92,7 @@ def mRNA_to_Amino_acid(mRNA):
       elif mRNA[x + 1] == "G":
         Amino_acid.append("Arg")
     elif mRNA[x] == "G":
-      if mRNA[x + 2] == "A":
+      if mRNA[x + 1] == "A":
         if mRNA[x + 2] == "A" or mRNA[x + 2] == "G":
           Amino_acid.append("Glu")
         else:
@@ -119,21 +121,42 @@ def print_Amino_acid_sequence(Amino_acid):
 
   print("\n", "\n")
 
-def action(thing_that_ate, action, thing_that_got_eaten):
-  if thing_that_ate == 7 and action == "8" and thing_that_got_eaten == 9:
-    return True
-    
-while action(7, "8", 9):
-
-  if len(DNA) != 0:
-    DNA_list.append(DNA)
-    DNA = ""
-    
-  string = str(input("DNA: "))
-  print(string)
-  DNA = string_to_DNA(string)
-  mRNA = DNA_to_mRNA(DNA)
-  Amino_acid = mRNA_to_Amino_acid(mRNA)
-  print_mRNA_sequence(mRNA)
-  print_Amino_acid_sequence(Amino_acid)
+def RESET_VARIABLES():
+  global DNA
+  global DNA_list
+  global mRNA
+  global mRNA_list
+  global Amino_acid
+  global Amino_acid_list
   
+  DNA_list.append(DNA)
+  DNA = ""
+  mRNA_list.append(mRNA)
+  mRNA = ""
+  Amino_acid_list.append(Amino_acid)
+  Amino_acid = ""
+
+def DNA_Mutation_Finder(Mutated, list):
+  Mutated_strand = set(Mutated)
+  Original_strand = set(list[0])
+
+  dif = Original_strand.difference(Mutated_strand)
+  return dif
+  
+string = str(input("DNA: "))
+DNA = string_to_DNA(string)
+mRNA = DNA_to_mRNA(DNA)
+Amino_acid = mRNA_to_Amino_acid(mRNA)
+print_mRNA_sequence(mRNA)
+print_Amino_acid_sequence(Amino_acid)
+
+RESET_VARIABLES()
+
+string = str(input("DNA: "))
+DNA = string_to_DNA(string)
+print(DNA_Mutation_Finder(DNA, DNA_list))
+mRNA = DNA_to_mRNA(DNA)
+    
+print_mRNA_sequence(mRNA)
+print_Amino_acid_sequence(Amino_acid)
+print(DNA_mutation_string, mRNA_mutation_string, Amino_acid_mutation_string)
